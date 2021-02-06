@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Hungry Monster</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="foodDetail">
+
+    </div>
+    <div id="main-container" class="container">
+        <h1 class="container text-center">Welcome to our Restaurant.</h1>
+        <form class="col-md-6 m-auto py-5">
+            <div class="input-group mb-3">
+                <input type="text" id="input-food" class="form-control"
+                    placeholder="Enter a location for Weather ...">
+                <div class="input-group-append">
+                    <button type="button" id="searchBtn" class="btn btn-danger">Search</button>
+                </div>
+            </div>
+        </form>
+        
+        <div id="foodItem">
+
+        </div>
+    </div>
+
+    <script>
+
+
+        fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=a')
+            .then(res => res.json())
+            .then(data => {
+                displayInfo(data.meals);
+            })
+
+        const displayInfo = foods => {
+            const foodItem = document.getElementById('foodItem');
+            foods.forEach(food => {
+                // console.log(food.strMeal);
+                const foodInfo = `
+                    <img src="${food.strMealThumb}">
+                    <h2>${food.strMeal}</h2>
+                `;
+                const foodDiv = document.createElement('div');
+                foodDiv.innerHTML = foodInfo;
+                foodDiv.addEventListener('click', function () {
+                    showDetails(food.strMeal);
+                })
+                foodDiv.className = "food-items";
+                console.log(foodDiv);
+                foodItem.appendChild(foodDiv);
+            });
+        }
+
+        const showDetails = name => {
+            const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    renderFoodDetails(data.meals);
+                    // console.log(data.meals);
+                })
+
+        }
+
+        const renderFoodDetails = food => {
+            // console.log(food);
+            // console.log(food[0].idMeal);
+            const foodDetailsDiv = document.getElementById('foodDetail');
+            foodDetail.innerHTML = `
+                <img src="${food[0].strMealThumb}">
+                <h2>${food[0].strMeal}</h2>
+                <p>${food[0].strIngredient2}</p>
+                <p>${food[0].strIngredient4}</p>
+                <p>${food[0].strIngredient3}</p>
+                <p>${food[0].strIngredient11}</p>
+                <p>${food[0].strMeasure2}</p>
+                <p>${food[0].strMeasure4}</p>
+                <p>${food[0].strMeasure6}</p>
+                <p>${food[0].strYoutube}</p> 
+            `;
+            document.getElementById('main-container').style.display="none";
+            foodDetailsDiv.style.display = "block";
+
+        }
+
+    </script>
+</body>
+
+</html>

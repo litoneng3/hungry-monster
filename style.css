@@ -1,0 +1,26 @@
+.food-items{
+    border: 4px solid tomato;
+    border-radius: 20px;
+    padding: 10px;
+    text-align: center;
+}
+.food-items img{
+    width: 200px;
+}
+#foodItem{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+}
+#foodDetail img{
+    width: 600px;
+}
+#foodDetail{
+    width: 40%;
+    margin: 0 auto;
+    border: 3px solid gold;
+    border-radius: 20px;
+    padding: 20px;
+    display: none;
+    background-color: gold;
+}
