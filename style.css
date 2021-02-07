@@ -13,10 +13,11 @@
     grid-gap: 20px;
 }
 #foodDetail img{
-    width: 600px;
+    width: 260px;
+    border-radius: 10px;
 }
 #foodDetail{
-    width: 40%;
+    width: 20%;
     margin: 0 auto;
     border: 3px solid gold;
     border-radius: 20px;
