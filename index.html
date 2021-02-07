@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div id="foodDetail" class="sticky-top">
+    <div id="foodDetail">
 
     </div>
     <div id="main-container" class="container">
@@ -36,7 +36,7 @@
         document.getElementById('searchBtn').addEventListener('click', function () {
             promiseFood();
             document.getElementById('input-food').value = "";
-            document.getElementById('foodItem').innerHTML ="";           
+            document.getElementById('foodItem').innerHTML = "";
         });
 
         const promiseFood = () => {
@@ -46,8 +46,17 @@
                 .then(data => {
                     displayInfo(data.meals);
                 })
+                .catch(error => {
+                    errorMessage();
+                })
         }
-        
+
+        const errorMessage = () => {
+            console.log("error occurs");
+            const errorText = document.createElement('h3');
+            errorText.innerText = 'Nothing Matched found. Please Try Again.....';
+            foodItem.appendChild(errorText);
+        }
 
         const displayInfo = foods => {
             const foodItem = document.getElementById('foodItem');
@@ -63,8 +72,8 @@
                     showDetails(food.strMeal);
                 })
                 foodDiv.className = "food-items";
-                console.log(foodDiv);
-                foodItem.appendChild(foodDiv);               
+                // console.log(foodDiv);
+                foodItem.appendChild(foodDiv);
             });
         }
 
@@ -83,22 +92,30 @@
             foodDetail.innerHTML = `
                 <img src="${food[0].strMealThumb}">
                 <h2>${food[0].strMeal}</h2>
-                <li>${food[0].strIngredient2}</li>
-                <li>${food[0].strIngredient4}</li>
-                <li>${food[0].strIngredient3}</li>                
-                <li>${food[0].strMeasure2}</li>
-                <li>${food[0].strMeasure4}</li>
-                <li>${food[0].strMeasure6}</li>
-                <button id="showFood">Show All Food Items</button>
+                <h3>Ingredients:</h3>
+                <ul>
+                    <li>${food[0].strIngredient2}</li>
+                    <li>${food[0].strIngredient4}</li>
+                    <li>${food[0].strIngredient3}</li>                
+                    <li>${food[0].strIngredient6}</li>                
+                    <li>${food[0].strIngredient8}</li>                
+                    <li>${food[0].strIngredient9}</li>                
+                    <li>${food[0].strMeasure2}</li>
+                    <li>${food[0].strMeasure4}</li>
+                    <li>${food[0].strMeasure6}</li>
+                    <li>${food[0].strMeasure5}</li>
+                    <li>${food[0].strMeasure8}</li>
+                    <li>${food[0].strMeasure9}</li>
+                </ul>
+                <button id="showFood" class="btn btn-info">Show All Food Items</button>
             `;
-            // document.getElementById('main-container').style.display = "none";
             foodDetailsDiv.style.display = "block";
 
-            document.getElementById('showFood').addEventListener('click', function(){
+            document.getElementById('showFood').addEventListener('click', function () {
                 document.getElementById('foodDetail').style.display = "none";
             })
-                
-            
+
+
 
         }
 
