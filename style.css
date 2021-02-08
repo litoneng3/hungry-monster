@@ -27,8 +27,3 @@
     display: none;
     background-color: gold;
 }
-#foodItem h3{
-    position: absolute;
-    right: 490px;
-    color: red;
-}

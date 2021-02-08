@@ -2,6 +2,7 @@ document.getElementById('searchBtn').addEventListener('click', function () {
     promiseFood();
     document.getElementById('input-food').value = "";
     document.getElementById('foodItem').innerHTML = "";
+    document.getElementById('error-message').innerText = "";
 });
 
 const promiseFood = () => {
@@ -12,15 +13,13 @@ const promiseFood = () => {
             displayInfo(data.meals);
         })
         .catch(error => {
-            errorMessage();
+            displayError('Something went wrong!!! Please try again later.');
         })
 }
 
-const errorMessage = () => {
-    console.log("error occurs");
-    const errorText = document.createElement('h3');
-    errorText.innerText = 'Nothing Matched found. Please Try Again.....';
-    foodItem.appendChild(errorText);
+const displayError = error => {
+    const errorText = document.getElementById('error-message');
+    errorText.innerText = error;
 }
 
 const displayInfo = foods => {
@@ -72,7 +71,7 @@ const renderFoodDetails = food => {
             <li>${food[0].strMeasure8}</li>
             <li>${food[0].strMeasure9}</li>
         </ul>
-        <button id="showFood" class="btn btn-info">Show All Food Items</button>
+        <button id="showFood" class="btn btn-info">Back To Food Items</button>
     `;
     foodDetailsDiv.style.display = "block";
 
